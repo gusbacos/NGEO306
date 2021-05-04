@@ -1,0 +1,21 @@
+import geopandas as gpd
+import pandas as pd
+from rasterstats import zonal_stats
+
+# Inputs
+dsm = 'DSM_LondonCity_1m.tif'
+vectorlayer = 'drone_pos_32631.gml'
+drones = gpd.read_file(vectorlayer)
+
+# Set radius and syle for buffer 
+style = 3 # 1 circle 3 square
+radius = 50
+
+# Buffer point
+drones['buff'] = drones['geometry'].buffer(radius, cap_style = 3)
+
+# Calculate mean min max count (zonal statistics using the created buffer")
+drones_zonal_stats = drones.join(pd.DataFrame(zonal_stats(drones['buff'],dsm)))
+
+# Print to txt file for columns: mean, min , max with tab-seperator
+drones_zonal_stats.set_index('id')[['mean','min','max']].to_csv('droneheight.txt', sep = '\t')
