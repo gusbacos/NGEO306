@@ -9,7 +9,7 @@ drones = gpd.read_file(vectorlayer)
 
 # Set radius and syle for buffer 
 style = 3 # 1 circle 3 square
-radius = 50
+radius = 100.
 
 # Buffer point
 drones['buff'] = drones['geometry'].buffer(radius, cap_style = 3)
