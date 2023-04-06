@@ -18,4 +18,4 @@ drones['buff'] = drones['geometry'].buffer(radius, cap_style = 3)
 drones_zonal_stats = drones.join(pd.DataFrame(zonal_stats(drones['buff'],dsm)))
 
 # Print to txt file for columns: mean, min , max with tab-seperator
-drones_zonal_stats.set_index('id')[['mean','min','max']].to_csv('droneheight_gpd_rasterio.txt', sep = '\t')
+drones_zonal_stats.set_index('id')[['mean','min','max']].to_csv('droneheight_gpd_rasterio.txt', sep = '\t',float_format = '%.3f')
